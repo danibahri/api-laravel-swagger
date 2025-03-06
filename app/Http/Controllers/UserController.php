@@ -6,13 +6,19 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 /**
- * @OA\Info(title="User API", version="1.0")
+ * @OA\Info(title="User API", version="1.0", description="API Documentation User")
+ * @OA\ExternalDocumentation(
+ *     description="link to repository -> Ahmad Ramadani Bahri",
+ *     url="https://github.com/danibahri/api-laravel-swagger",
+ * )
+ * @OA\Server(url="http://localhost:8000")
+ * @OA\Server(url="https://api.example.com")
  * 
  * @OA\Schema(
  *     schema="User",
  *     required={"name", "email", "password"},
  *     @OA\Property(property="id", type="integer", example=1),
- *     @OA\Property(property="name", type="string", example="User 1"),
+ *     @OA\Property(property="name", type="string", example="dani"),
  *     @OA\Property(property="email", type="string", format="email", example="test1@example.com"),
  *     @OA\Property(property="password", type="string", format="password", example="secret"),
  *     @OA\Property(property="alamat", type="string", example="Jl. Test No. 123"),
@@ -53,8 +59,8 @@ class UserController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             required={"name", "email", "password"},
-     *             @OA\Property(property="name", type="string", example="John Doe"),
-     *             @OA\Property(property="email", type="string", format="email", example="john@example.com"),
+     *             @OA\Property(property="name", type="string", example="dani"),
+     *             @OA\Property(property="email", type="string", format="email", example="dani@example.com"),
      *             @OA\Property(property="password", type="string", format="password", example="secret"),
      *             @OA\Property(property="alamat", type="string", example="123 Street"),
      *             @OA\Property(property="no_tlp", type="string", example="08123456789")
@@ -113,5 +119,97 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
         return response()->json($user);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/users/delete/{id}",
+     *     summary="Delete user by ID",
+     *     tags={"User"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User deleted"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found"
+     *     )
+     * )
+     */
+    public function delete($id)
+    {
+        $user = User::find($id);
+        if(!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        $user->delete();
+        return response()->json(['message' => 'User deleted']);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/api/users/update/{id}",
+     *     summary="Update user by ID",
+     *     tags={"User"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="dani"),
+     *             @OA\Property(property="email", type="string", format="email", example="dani@example.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="secret"),
+     *             @OA\Property(property="alamat", type="string", example="123 Street"),
+     *             @OA\Property(property="no_tlp", type="string", example="08123456789")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User updated",
+     *         @OA\JsonContent(ref="#/components/schemas/User")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found"
+     *     )
+     * )
+     */
+    public function update(Request $request, $id)
+    {
+    $user = User::find($id);
+    if (!$user) {
+        return response()->json(['message' => 'User not found'], 404);
+    }
+
+    // Update hanya field yang ada dalam request
+    if ($request->has('name')) {
+        $user->name = $request->name;
+    }
+    if ($request->has('email')) {
+        $user->email = $request->email;
+    }
+    if ($request->has('password')) {
+        $user->password = bcrypt($request->password);
+    }
+    if ($request->has('alamat')) {
+        $user->alamat = $request->alamat;
+    }
+    if ($request->has('no_tlp')) {
+        $user->no_tlp = $request->no_tlp;
+    }
+
+    $user->save();
+
+    return response()->json($user);
     }
 }

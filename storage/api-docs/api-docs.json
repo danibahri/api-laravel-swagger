@@ -2,8 +2,17 @@
     "openapi": "3.0.0",
     "info": {
         "title": "User API",
+        "description": "API Documentation User",
         "version": "1.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        },
+        {
+            "url": "https://api.example.com"
+        }
+    ],
     "paths": {
         "/api/users": {
             "get": {
@@ -47,12 +56,12 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "example": "John Doe"
+                                        "example": "dani"
                                     },
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "john@example.com"
+                                        "example": "dani@example.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -123,6 +132,101 @@
                     }
                 }
             }
+        },
+        "/api/users/delete/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete user by ID",
+                "operationId": "75ca25ebd02af4ba58706fccb7ae8179",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/api/users/update/{id}": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user by ID",
+                "operationId": "97d6cee3e6d901306b2a691941b07ef0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "dani"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "dani@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret"
+                                    },
+                                    "alamat": {
+                                        "type": "string",
+                                        "example": "123 Street"
+                                    },
+                                    "no_tlp": {
+                                        "type": "string",
+                                        "example": "08123456789"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -140,7 +244,7 @@
                     },
                     "name": {
                         "type": "string",
-                        "example": "User 1"
+                        "example": "dani"
                     },
                     "email": {
                         "type": "string",
@@ -180,5 +284,9 @@
             "name": "User",
             "description": "User"
         }
-    ]
+    ],
+    "externalDocs": {
+        "description": "link to repository -> Ahmad Ramadani Bahri",
+        "url": "https://github.com/danibahri/api-laravel-swagger"
+    }
 }
