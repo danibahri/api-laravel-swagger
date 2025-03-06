@@ -10,7 +10,10 @@
             "url": "http://localhost:8000"
         },
         {
-            "url": "https://api.example.com"
+            "url": "https://103.146.202.172:8090/preview/api-laravel-swagger.my.id/"
+        },
+        {
+            "url": "/preview/api-laravel-swagger.my.id"
         }
     ],
     "paths": {
@@ -277,6 +280,14 @@
                 },
                 "type": "object"
             }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
         }
     },
     "tags": [
@@ -288,5 +299,10 @@
     "externalDocs": {
         "description": "link to repository danibahri/api-laravel-swagger",
         "url": "https://github.com/danibahri/api-laravel-swagger"
-    }
+    },
+    "security": [
+        {
+            "sanctum": []
+        }
+    ]
 }

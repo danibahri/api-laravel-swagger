@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
  *     url="https://github.com/danibahri/api-laravel-swagger",
  * )
  * @OA\Server(url="http://localhost:8000")
- * @OA\Server(url="https://api.example.com")
+ * @OA\Server(url="https://103.146.202.172:8090/preview/api-laravel-swagger.my.id/")
  * 
  * @OA\Schema(
  *     schema="User",
