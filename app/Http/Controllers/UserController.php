@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 /**
- * @OA\Info(title="User API", version="1.0", description="API Documentation User")
+ * @OA\Info(title="Documentation API with Swagger", version="1.0", description="API Documentation User")
  * @OA\ExternalDocumentation(
- *     description="link to repository -> Ahmad Ramadani Bahri",
+ *     description="link to repository danibahri/api-laravel-swagger",
  *     url="https://github.com/danibahri/api-laravel-swagger",
  * )
  * @OA\Server(url="http://localhost:8000")

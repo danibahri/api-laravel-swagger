@@ -1,66 +1,200 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📌 API Documentation with Swagger - Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Dokumentasi ini menggunakan **Swagger UI** untuk mendokumentasikan API yang telah dibuat dengan Laravel.
 
-## About Laravel
+## 📌 Instalasi Swagger di Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1️⃣ Install Composer Package
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash
+composer require "darkaonline/l5-swagger"
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2️⃣ Publikasi Konfigurasi
 
-## Learning Laravel
+```bash
+php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3️⃣ Generate Dokumentasi API
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+php artisan l5-swagger:generate
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Dokumentasi akan tersedia di:  
+📌 **`http://localhost:8000/api/documentation`**
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 📌 API Endpoints
 
-### Premium Partners
+| Method | Endpoint                 | Deskripsi              |
+| ------ | ------------------------ | ---------------------- |
+| `GET`  | `/api/users`             | Menampilkan semua user |
+| `POST` | `/api/users`             | Menambahkan user baru  |
+| `GET`  | `/api/users/{id}`        | Menampilkan user by ID |
+| `GET`  | `/api/users/delete/{id}` | Menghapus user by ID   |
+| `PUT`  | `/api/users/update/{id}` | Memperbarui user by ID |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## 📌 Contoh Request
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### ✅ **1. Get All Users**
 
-## Code of Conduct
+📌 **Request:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```http
+GET /api/users
+```
 
-## Security Vulnerabilities
+📌 **Response:**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```json
+[
+    {
+        "id": 1,
+        "name": "Dani Bahri",
+        "email": "dani@example.com",
+        "alamat": "Jl. Test No. 123",
+        "no_tlp": "08123456789",
+        "created_at": "2023-01-01T00:00:00Z",
+        "updated_at": "2023-01-01T00:00:00Z"
+    }
+]
+```
 
-## License
+### ✅ **2. Create User**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+📌 **Request:**
+
+```http
+POST /api/users
+Content-Type: application/json
+```
+
+📌 **Body:**
+
+```json
+{
+    "name": "Dani",
+    "email": "dani@example.com",
+    "password": "secret",
+    "alamat": "Jl. Test No. 123",
+    "no_tlp": "08123456789"
+}
+```
+
+📌 **Response:**
+
+```json
+{
+    "id": 2,
+    "name": "Dani",
+    "email": "dani@example.com",
+    "alamat": "Jl. Test No. 123",
+    "no_tlp": "08123456789",
+    "created_at": "2023-01-01T00:00:00Z",
+    "updated_at": "2023-01-01T00:00:00Z"
+}
+```
+
+### ✅ **3. Get User by ID**
+
+📌 **Request:**
+
+```http
+GET /api/users/1
+```
+
+📌 **Response:**
+
+```json
+{
+    "id": 1,
+    "name": "Dani Bahri",
+    "email": "dani@example.com",
+    "alamat": "Jl. Test No. 123",
+    "no_tlp": "08123456789",
+    "created_at": "2023-01-01T00:00:00Z",
+    "updated_at": "2023-01-01T00:00:00Z"
+}
+```
+
+### ✅ **4. Update User**
+
+📌 **Request:**
+
+```http
+PUT /api/users/update/1
+Content-Type: application/json
+```
+
+📌 **Body:**
+
+```json
+{
+    "name": "Dani Updated",
+    "email": "updated@example.com"
+}
+```
+
+📌 **Response:**
+
+```json
+{
+    "id": 1,
+    "name": "Dani Updated",
+    "email": "updated@example.com",
+    "alamat": "Jl. Test No. 123",
+    "no_tlp": "08123456789",
+    "created_at": "2023-01-01T00:00:00Z",
+    "updated_at": "2023-01-01T00:00:00Z"
+}
+```
+
+### ✅ **5. Delete User**
+
+📌 **Request:**
+
+```http
+GET /api/users/delete/1
+```
+
+📌 **Response:**
+
+```json
+{
+    "message": "User deleted"
+}
+```
+
+---
+
+## 📌 Cara Menjalankan Swagger UI
+
+1️⃣ **Jalankan Laravel Server:**
+
+```bash
+php artisan serve
+```
+
+2️⃣ **Buka Dokumentasi Swagger:**  
+Akses melalui browser:  
+📌 [`http://localhost:8000/api/documentation`](http://localhost:8000/api/documentation)
+
+---
+
+## 📌 Teknologi yang Digunakan
+
+✅ Laravel 10  
+✅ L5 Swagger  
+✅ PHP 8+  
+✅ MySQL
+
+📌 **Repo:** [`github.com/danibahri/api-laravel-swagger`](https://github.com/danibahri/api-laravel-swagger)
+
+---
+
+Semoga bermanfaat! 🚀

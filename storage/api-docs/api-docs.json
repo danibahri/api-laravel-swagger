@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "User API",
+        "title": "Documentation API with Swagger",
         "description": "API Documentation User",
         "version": "1.0"
     },
@@ -286,7 +286,7 @@
         }
     ],
     "externalDocs": {
-        "description": "link to repository -> Ahmad Ramadani Bahri",
+        "description": "link to repository danibahri/api-laravel-swagger",
         "url": "https://github.com/danibahri/api-laravel-swagger"
     }
 }
